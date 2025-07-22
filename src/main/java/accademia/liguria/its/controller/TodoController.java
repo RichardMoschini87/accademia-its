@@ -3,6 +3,8 @@ package accademia.liguria.its.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,26 +17,24 @@ import accademia.liguria.its.service.TodoService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/todo")
 public class TodoController {
-    private TodoService todoService;
-    
-    public TodoController(TodoService todoService) {
-        this.todoService = todoService;
-    }
 
-    @GetMapping("/lista")
-    public List<Todo> getAllTodos() {
-        return todoService.getAllTodos();
+    @Autowired
+    private TodoService todoService;
+
+    @GetMapping("/lista/{page}")
+    public List<Todo> getAllTodos(@PathVariable Integer page) {
+        return todoService.getAllTodos(page);
     }
 
     @GetMapping("/{idTodo}")
     public Optional<Todo> getTodo(@PathVariable Integer idTodo) {
         return todoService.getTodo(idTodo);
     }
-    
+
     @GetMapping("/lista/completa")
     public List<TodoComplete> getAllCompleteTodos() {
         return todoService.getAllCompleteTodos();
@@ -50,7 +50,7 @@ public class TodoController {
         todoService.saveTodo(todo);
         return "Todo creato con successo";
     }
-    
+
     @DeleteMapping("/{idTodo}")
     public String deleteTodo(@PathVariable Integer idTodo) {
         todoService.deleteTodo(idTodo);

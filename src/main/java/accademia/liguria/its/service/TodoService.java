@@ -3,6 +3,7 @@ package accademia.liguria.its.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -33,14 +34,14 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
-    public List<Todo> getAllTodos() {
-        // esempio di paginazione
-        var paginate = todoRepository.findAll(PageRequest.of(0, 2));
+    public List<Todo> getAllTodos(Integer page) {
+         Page<Todo> paginate = todoRepository.findAll(PageRequest.of(page, 3));
         return paginate.getContent();
     }
 
     public List<TodoComplete> getAllCompleteTodos() {
         return todoRepository.getAllTodoComplete();
+        // return todoRepository.getAllTodoComplete();
     }
 
     public List<TodoComplete> getTodoComplete(Integer idTodo) {
