@@ -25,13 +25,13 @@ public class TodoController {
     @Autowired
     private TodoService todoService;
 
-    @GetMapping("/lista/{page}")
-    public List<Todo> getAllTodos(@PathVariable Integer page) {
-        return todoService.getAllTodos(page);
+    @GetMapping("/lista")
+    public List<Todo> getAllTodos() {
+        return todoService.getAllTodos();
     }
 
     @GetMapping("/{idTodo}")
-    public Optional<Todo> getTodo(@PathVariable Integer idTodo) {
+    public Todo getTodo(@PathVariable Integer idTodo) {
         return todoService.getTodo(idTodo);
     }
 
@@ -51,7 +51,7 @@ public class TodoController {
         return "Todo creato con successo";
     }
 
-    @DeleteMapping("/{idTodo}")
+    @DeleteMapping("/todo/{idTodo}")
     public String deleteTodo(@PathVariable Integer idTodo) {
         todoService.deleteTodo(idTodo);
         return "Todo eliminato con successo";

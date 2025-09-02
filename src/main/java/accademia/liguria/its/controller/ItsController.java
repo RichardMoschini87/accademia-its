@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import accademia.liguria.its.models.Studente;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/its")
@@ -74,5 +76,4 @@ public class ItsController {
 	public ResponseEntity<Studente> insert(@RequestBody(required = true) Studente studente) {
 		return ResponseEntity.ok(studente);
 	}
-
 }
